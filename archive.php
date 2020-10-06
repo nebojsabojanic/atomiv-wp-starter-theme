@@ -6,9 +6,6 @@
 get_header(); ?>
 
 
-<!-- ##################################################
-   mainContent
-################################################## -->
 <div class="mainContent">
 
 
@@ -34,9 +31,9 @@ get_header(); ?>
                      $year = (get_query_var('year')) ? absint(get_query_var('year')) : -1;
                      
                      $args = array(
-                          'post_type'     => array('infopool','post'),
-                         'post_per_page' => 10,
-                         'paged'         => $paged,
+                        'post_type'     => array('infopool','post'),
+                        'post_per_page' => 10,
+                        'paged'         => $paged,
                      );
                      if($monthnum != -1 && $year != -1){
                         $args["monthnum"] = $monthnum;

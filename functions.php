@@ -93,3 +93,39 @@ add_filter( 'posts_distinct', 'cf_search_distinct' );
 /* ========================================================================
 	End: Search function for posts
 =========================================================================*/
+
+
+
+
+/* ========================================================================
+	Add function for post thumbnail image
+=========================================================================*/
+
+add_theme_support( 'post-thumbnails' );
+
+/* ========================================================================
+	End: Add function for post thumbnail image
+=========================================================================*/
+
+
+
+
+/* ========================================================================
+	Register Widget sidebar
+=========================================================================*/
+function custom_post_sidebar_widget() {
+    register_sidebar( array(
+        'name'          => __( 'Single Post Sidebar', 'singlepost' ),
+        'id'            => 'single_post_sidebar',
+        'description'   => __( 'Widgets in this area will be shown on all posts.', 'singlepost' ),
+        'before_widget' => '<li id="%1$s" class="widget %2$s">',
+        'after_widget'  => '</li>',
+        'before_title'  => '<h2 class="widge__ttitle">',
+        'after_title'   => '</h2>',
+    ) );
+}
+add_action( 'widgets_init', 'custom_post_sidebar_widget' );
+
+/* ========================================================================
+	End: Register Widget sidebar
+=========================================================================*/

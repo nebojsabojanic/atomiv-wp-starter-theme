@@ -6,15 +6,6 @@
 get_header(); ?>
 
 
-<div class="mainContent">
-
-
-   <div class="desktop">
-
-      <div class="table">
-
-         <div class="gap">
-
             <div class="content blog searchResults">
               <a href="<?php echo bloginfo('url'); ?>/blog" title="">
                  <h1 class="archive">Blog</h1>
@@ -77,20 +68,10 @@ get_header(); ?>
                </ul>
             </div><!-- end content -->
 
-         </div><!-- End: .gap -->
 
          <aside>
             <?php dynamic_sidebar( 'blog-sidebar' ); ?>
          </aside><!-- End: Sidebar -->
 
-      </div> <!-- end table -->
 
-   </div><!-- end desktop -->
-
-</div><!-- End: .mainContent-->
-
-
-<!-- ##################################################
-   PAGE STRUCTURE:= end mainContent
-   ################################################## -->
 <?php get_footer();

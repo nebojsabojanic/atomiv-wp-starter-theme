@@ -2,27 +2,26 @@
 
 <?php get_header();?>
 
+
 <?php if ( have_posts() ) : ?>
 
-  <?php while ( have_posts() ) : the_post(); ?>
+	<?php while ( have_posts() ) : the_post(); ?>
 
 
-		<div class="page-content">
+		<div class="a__content">
 
-			<div class="grid-1280">
+			<div class="grid-1160">
 
 				<?php the_content(); ?>
 
-			</div><!-- end grid-1280 -->
+			</div><!-- end grid-1160 -->
 
-		</div>
-		<!-- ##################################################
-			End: .page-content
-		################################################## -->
+		</div><!-- End: .a__content -->
 
 
-  <?php endwhile; ?>
+	<?php endwhile; ?>
 
 <?php endif; ?>
+
 
 <?php get_footer();?>

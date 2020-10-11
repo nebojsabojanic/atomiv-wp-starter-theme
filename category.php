@@ -1,106 +1,109 @@
 <?php
-/* The template shows Archive Page */
-   
+/*
+ *	Blog page
+ */
+
 get_header(); ?>
 
 
-<div class="mainContent">
-  
-	<div class="desktop">
+<div class="a__content blog blog--category">
 
-		<div class="table">
+	<div class="grid-1160">
 
-			<div class="gap">
+		<h1 class="blog__title"><?php the_title(); ?></h1>
 
-				<div class="content blog searchResults">
-					<a href="<?php echo bloginfo('url'); ?>/blog" title="">
-						<h1 class="archive">Blog</h1>
+		<?php
+			// Title of the category
+			the_archive_title( '<h1 class="archive">', '</h1>' );
+			// Post category description
+			the_archive_description( '<div class="taxonomy-description">', '</div>' );
+		?>
+
+		<div class="blog__content">
+
+			<ul class="blog__posts">
+				<?php
+				// For pagination to knows on which page you are
+				$paged = (get_query_var('paged')) ? absint(get_query_var('paged')) : 1;
+				$monthnum = (get_query_var('monthnum')) ? absint(get_query_var('monthnum')) : -1;
+				$year = (get_query_var('year')) ? absint(get_query_var('year')) : -1;
+
+				$args = array(
+					'post_type'     => 'post',
+					'posts_per_page'	=> 5, // Number of posts per page
+					'cat'				=> $cat,
+					'orderby'			=> 'date',
+					'paged'				=> $paged, // Enable pagination
+					'order'				=> 'DESC'
+				);
+
+				if($monthnum != -1 && $year != -1){
+					$args["monthnum"] = $monthnum;
+					$args["year"] = $year;
+				}
+
+				$postsCat = new WP_Query($args);
+
+				if ($postsCat->have_posts()) {
+					while ($postsCat->have_posts()) {
+						$postsCat->the_post();
+				?>
+
+				<li class="blog__article">
+
+					<span class="blog__date"><?php echo get_the_time('d.m.y') ?></span>
+
+					<a href="<?php echo get_the_permalink(); ?>">
+						<h3><?php the_title() ?></h3>
 					</a>
+					<!-- get_the_post_thumbnail_url -->
+					<?php get_the_post_thumbnail_url(); ?>
+					<!-- the_post_thumbnail -->
+					<?php the_post_thumbnail(); ?>
 
-					<?php
-					the_archive_title( '<h1 class="archive">', '</h1>' );
-					the_archive_description( '<div class="taxonomy-description">', '</div>' );
-					?>
+					<div class="blog__thumbnail">
+						<img alt="" title="" src="<?php get_the_post_thumbnail_url(); ?>">
+					</div>
 
-					<ul>
+					<div class="blog__content">
+						<div class="blog__excerpt"><?php the_excerpt(); ?></div>
+						<div class="permalink"><a href="<?php echo get_the_permalink(); ?>">Read More</a></div>
+					</div>
 
-					<?php
-						$paged = (get_query_var('page_val') ? get_query_var('page_val') : 1);
-						$monthnum = (get_query_var('monthnum')) ? absint(get_query_var('monthnum')) : -1;
-						$year = (get_query_var('year')) ? absint(get_query_var('year')) : -1;
+				</li><!-- End: blog__article -->
 
-						$args = new WP_Query(
-							array(
-								'post_type'			=> 'post',
-								'posts_per_page'	=> 5, /* Number of posts per page */
-								'cat'				=> $cat,
-								'orderby'			=> 'date',
-								'paged'				=> $paged,
-								'order'				=> 'DESC'
-							)
-						);
+				<?php
+					} // End: while have_posts
+				} else {
+					echo 'No matching results found. Please modify your search criteria and try searching again.!';
+				} // End: if have_posts
+				?>
 
-						if($monthnum != -1 && $year != -1){
-							$args["monthnum"] = $monthnum;
-							$args["year"] = $year;
-						}
+			</ul>
 
-						if ($args->have_posts()) {
-							while ($args->have_posts()) {
-								$args->the_post();
-					?>
+			<div class="pagination">
+				<?php $big = 999999999; // need an unlikely integer
+				echo paginate_links(array(
+				'base'      => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
+				'format'    => '?paged=%#%',
+				'current'   => max(1, get_query_var('paged')),
+				'total'     => $posts->max_num_pages,
+				'mid_size'  => 1,
+				'prev_text' => "<",
+				'next_text' => ">"
+				)); ?>
+			</div><!-- End: pagination-->
 
-						<li>
-							<span class="date"><?php echo get_the_time('d.m.y') ?></span>
-							<a href="<?php echo get_the_permalink(); ?>"><h3><?php the_title() ?></h3></a>
-							<div class="postContent">
-								<div class="postExcerpt"><?php the_excerpt(); ?></div>
-								<div class="permalink"><a href="<?php echo get_the_permalink(); ?>">Read More</a></div> <!-- ### ADD READ MORE TEXT HERE-->
-							</div><!-- end postContent -->
+		</div><!-- End: blog__content -->
 
-						</li>
-					<?php
-							}// END while
-					?>
-						<div class="pagination"><!-- start pagination-->
-							<?php $big = 999999999; // need an unlikely integer
-							echo paginate_links(array(
-								'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
-								'format' => '/page/%#%',
-								'current' => max(1, $paged),
-								'prev_text' => __('Previous Page'),
-								'next_text' => __('Next Page'),
-								'show_all' => true,
-								'total' => $args->max_num_pages
-							)); 
-							?> 
-						</div><!-- end pagination-->
-
-					<?php   
-					}// END if 
-					else {
-						echo 'No matching results found. Please modify your search criteria and try searching again.!';
-					}
-					?>
-
-					</ul>
-
-				</div><!-- end content -->
-			
-			</div><!-- end gap -->
-
-			<aside>
-				<?php dynamic_sidebar( 'blog-sidebar' ); ?>
-			</aside>
+		<aside>
+			<?php dynamic_sidebar( 'blog-sidebar' ); ?>
+		</aside>
 		
-		</div><!-- end table -->
+	</div><!-- end grid-1160 -->
 
-	</div><!-- end desktop -->
-   
-</div>
-<!-- ##################################################
-   PAGE STRUCTURE:= end mainContent
-################################################## -->
+
+</div><!-- End: a__content & blog -->
 
 
 <?php get_footer();

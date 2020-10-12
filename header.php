@@ -58,7 +58,7 @@
 <body <?php body_class(); ?>>
 
 
-<div class="body-wrapper">
+<div class="body-wrapper"><!-- Closing in the footer.php -->
 
 
 	<!--[if lte IE 9]>
@@ -70,7 +70,9 @@
 		<!-- <a href="<?php echo get_home_url(); ?>" title="<?php the_title_attribute(); ?>">
 			<img src="<?php echo $logo['url'];?>" alt="<?php echo $logo['alt'];?>" title="<?php echo $logo['title'];?>">
 		</a> -->
-		<?php the_custom_logo(); ?>
+		<?php if ( function_exists( 'the_custom_logo' ) ) {
+			the_custom_logo();
+		} ?>
 
 
 		<?php
@@ -87,4 +89,4 @@
 	################################################## -->
 
 
-	<div class="main-content">
+	<div class="main-content"><!-- Closing in the footer.php -->

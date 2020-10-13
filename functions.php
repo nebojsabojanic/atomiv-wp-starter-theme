@@ -21,7 +21,7 @@ register_nav_menus( array(
 ==============================================================*/
 
 function atomiv_custom_logo_setup() {
-    $defaults = array(
+    $cldefaults = array(
         'height'      => 100,
         'width'       => 351,
         'flex-height' => true,
@@ -29,7 +29,7 @@ function atomiv_custom_logo_setup() {
         'header-text' => array( 'site-title', 'site-description' ),
         'unlink-homepage-logo' => true, 
     );
-    add_theme_support( 'custom-logo', $defaults );
+    add_theme_support( 'custom-logo', $cldefaults );
 }
 add_action( 'after_setup_theme', 'atomiv_custom_logo_setup' );
 
@@ -41,26 +41,40 @@ add_action( 'after_setup_theme', 'atomiv_custom_logo_setup' );
 
 
 /* =============================================================
-	Register widget - sidebar
+	Register widgets
 ==============================================================*/
 
-function theme_slug_blog_widgets_init() {
+// Blog sidebar
+function atomiv_blog_widgets_init() {
 	register_sidebar( array(
-		'name'			=> esc_html__( 'Blog sidebar', 'theme_slug_blog' ),
+		'name'			=> esc_html__( 'Blog sidebar', 'atomiv_blog' ),
 		'id'			=> 'blog-sidebar',
-		'description'	=> esc_html__( 'Add widgets here.', 'theme_slug_blog' ),
-		'before_widget'	=> '<div class="blog-sidebar-widgets">',
+		'description'	=> esc_html__( 'Add widgets here.', 'atomiv_blog' ),
+		'before_widget'	=> '<div id="%1$s" class="sidebar__widget %2$s">',
 		'after_widget'	=> '</div>',
-		'before_title'	=> '<h3 class="sidebar-subtitle">',
+		'before_title'	=> '<h3 class="sidebar__title">',
 		'after_title'	=> '</h3>',
 	));
 }
-add_action( 'widgets_init', 'theme_slug_blog_widgets_init' );
+add_action( 'widgets_init', 'atomiv_blog_widgets_init' );
+
+// Single post sidebar
+function custom_post_sidebar_widget() {
+    register_sidebar( array(
+        'name'          => __( 'Single Post Sidebar', 'singlepost' ),
+        'id'            => 'single_post_sidebar',
+        'description'   => __( 'Widgets in this area will be shown on all posts.', 'singlepost' ),
+        'before_widget' => '<li id="%1$s" class="widget %2$s">',
+        'after_widget'  => '</li>',
+        'before_title'  => '<h2 class="widget__title">',
+        'after_title'   => '</h2>',
+    ) );
+}
+add_action( 'widgets_init', 'custom_post_sidebar_widget' );
 
 /* =============================================================
-	END: Register widget - sidebar
+	END: Register widgets
 ==============================================================*/
-
 
 
 
@@ -133,25 +147,3 @@ add_theme_support( 'post-thumbnails' );
 	End: Add function for post thumbnail image
 ==============================================================*/
 
-
-
-
-/* =============================================================
-	Register Widget sidebar
-==============================================================*/
-function custom_post_sidebar_widget() {
-    register_sidebar( array(
-        'name'          => __( 'Single Post Sidebar', 'singlepost' ),
-        'id'            => 'single_post_sidebar',
-        'description'   => __( 'Widgets in this area will be shown on all posts.', 'singlepost' ),
-        'before_widget' => '<li id="%1$s" class="widget %2$s">',
-        'after_widget'  => '</li>',
-        'before_title'  => '<h2 class="widge__ttitle">',
-        'after_title'   => '</h2>',
-    ) );
-}
-add_action( 'widgets_init', 'custom_post_sidebar_widget' );
-
-/* =============================================================
-	End: Register Widget sidebar
-==============================================================*/

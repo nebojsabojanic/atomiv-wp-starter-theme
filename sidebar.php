@@ -1,9 +1,7 @@
-<?php
-if ( ! is_active_sidebar( 'sidebar-1' ) ) {
-	return;
-}
-?>
+<?php if ( ! is_active_sidebar( 'atomiv_blog' ) ) { ?>
+	<div id="atomiv-sidebar" class="sidebar" role="complementary">
+		<?php dynamic_sidebar( 'atomiv_blog' ); ?>
+	</div><!-- End: #atomiv-sidebar -->
+<?php } ?>
 
-<div id="secondary" class="widget-area" role="complementary">
-	<?php dynamic_sidebar( 'sidebar-1' ); ?>
-</div><!-- #secondary -->
+

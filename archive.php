@@ -6,15 +6,15 @@
 get_header(); ?>
 
 
-<div class="a__content blog">
+<div class="atomiv blog">
 
    <div class="grid-1160">
 
       <?php
          // Title of the category
-         the_archive_title( '<h1 class="archive">', '</h1>' );
+         the_archive_title( '<h1 class="blog__taxonomy-title">', '</h1>' );
          // Post category description
-         the_archive_description( '<div class="taxonomy-description">', '</div>' );
+         the_archive_description( '<div class="blog__taxonomy-description">', '</div>' );
       ?>
 
       <div class="blog__content">
@@ -83,14 +83,13 @@ get_header(); ?>
 
       </div><!-- End: blog__content -->
    
-      <aside class="blog__sidebar">
-         <?php dynamic_sidebar( 'blog-sidebar' ); ?>
-      </aside><!-- End: blog__sidebar -->
+
+      <?php get_sidebar(); ?>
 
    </div><!-- end grid-1160 -->
 
 
-</div><!-- End: a__content & blog -->
+</div><!-- End: atomiv & blog -->
 
 
 <?php get_footer();

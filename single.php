@@ -1,10 +1,13 @@
 <?php 
+/*
+ * The template shows Single post
+ */
 
 get_header(); ?>
   
-    <div class="atomiv__signle grid-1200">
+    <div class="atomiv__single grid-1200">
 
-        <main class="signle__content ai__flex ai__sb">
+        <main class="single__content ai__flex ai__sb">
 
             <section class="content__single__main grid-70">
 
@@ -38,20 +41,13 @@ get_header(); ?>
                 // endif; 
             ?>
 
-            <aside class="single__sidebar grid-25">
-                
-                <!-- Sidebar activation - the sidebar is activated in function.php and this is its "single_post_sidebar" ID which is called for the sidebar to be activated. -->
-                <?php if ( is_active_sidebar( 'single_post_sidebar' ) ) { ?>
-                    <ul id="sidebar">
-                        <?php dynamic_sidebar('single_post_sidebar'); ?>
-                    </ul>
-                <?php } ?>
 
-            </aside><!-- End: signlsingle__sidebare__content -->
-
-        </main><!-- End: signle__content -->
+            <?php get_sidebar(); ?>
 
 
-    </div><!-- End: atomiv__signle -->
+        </main><!-- End: single__content -->
+
+
+    </div><!-- End: atomiv__single -->
   
 <?php get_footer(); ?>

@@ -96,9 +96,8 @@ get_header(); ?>
 
 		</div><!-- End: blog__content -->
 
-		<aside>
-			<?php dynamic_sidebar( 'blog-sidebar' ); ?>
-		</aside>
+
+		<?php get_sidebar(); ?>
 		
 	</div><!-- end grid-1160 -->
 
